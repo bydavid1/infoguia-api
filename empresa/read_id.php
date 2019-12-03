@@ -13,11 +13,11 @@ $database = new Database();
 $db = $database->getConnection();
 
 // initialize object
-$consulta = new Consultas($db);
+$empresa = new Empresa($db);
 
-$consulta->idempleado = isset($_GET['idempleado']) ? $_GET['idempleado'] : die();
+$empresa->idempresa = isset($_GET['idempresa']) ? $_GET['idempresa'] : die();
 
-$stmt = $consulta->readById();
+$stmt = $empresa->readDetails();
 $num = $stmt->rowCount();
 // check if more than 0 record found
 if($num>0){
@@ -28,13 +28,11 @@ if($num>0){
         extract($row);
 
         $consulta_item=array(
-            "idconsulta" => $idconsulta,
-            "fecha" => $fecha,
-            "hora" => $hora,
-            "nombres" => $nombres,
-            "apellidos" => $apellidos,
-            "num_Consultorio" => $num_Consultorio,
-            "nom_Doctor" => $nom_Doctor
+            "idempresa" => $idempresa,
+            "correo" => $correo,
+            "website" => $website,
+            "telefonos" => $telefonos,
+            "direccion" => $direccion
         );
 
         array_push($consulta_arr, $consulta_item);
@@ -53,7 +51,7 @@ else{
 
     // tell the user no products found
     echo json_encode(
-        array("message" => "No consults found.")
+        array("message" => "Not found.")
     );
 }
 

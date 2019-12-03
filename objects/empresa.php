@@ -13,6 +13,10 @@ class Empresa
     public $ubicacion;
     public $idhorario;
     public $portada;
+    public $direccion;
+    public $correo;
+    public $telefonos;
+    public $website;
     public $idgaleria;
 
 // constructor with $db as database connection
@@ -37,8 +41,6 @@ class Empresa
     $stmt->execute();
     return $stmt;
     }
-
-
 
     function create()
     {
@@ -132,22 +134,22 @@ class Empresa
     }
 
 //read One Quotes
-    function readById()
+    function readDetails()
     {
 
         // query to read single record
         $query = "SELECT
-                    idcita, fecha_Cita, hora_Cita, nombre_Paciente, apellido_Paciente, num_Consultorio
+                    idempresa, correo, website, telefonos, direccion
                 FROM
                     " . $this->table_name ." 
                 WHERE
-                    idpaciente = ?";
+                    idempresa = ?";
     
         // prepare query statement
         $stmt = $this->conn->prepare( $query );
     
         // bind id of product to be updated
-        $stmt->bindParam(1, $this->idpaciente);
+        $stmt->bindParam(1, $this->idempresa);
     
         // execute query
         $stmt->execute();
